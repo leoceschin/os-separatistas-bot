@@ -1,20 +1,32 @@
 import discord
+import youtube_dl
 
-cliente = discord.Client()
+client = discord.Client()
 
-@cliente.event
+@client.event
 async def on_ready():
     print ("Estou Online!")
 
-@cliente.event
+@client.event
 async def on_message(message):
     if message.content.lower().startswith('!shop'):
-        await cliente.send_message(message.channel, "Shopping não!!!")
+        await client.send_message(message.channel, "Shopping não!!!")
 
-@cliente.event
+    if message.content.lower().startswith('!music'):
+        msgArray = []
+        msgArray = message.content.split()
+        voice = await client.join_voice_channel(client.get_channel('425083604721336324'))
+        player = await voice.create_ytdl_player(msgArray[1])
+        player.play()
+
+            
+
+@client.event
 async def on_member_join(member):
-    channelId = cliente.get_channel("425083604721336322")
+    channelId = client.get_channel("425083604721336322")
     msg = "Alá! o {} chegou!".format(member.mention)
-    await cliente.send_message(channelId, msg)
+    await client.send_message(channelId, msg)
 
-cliente.run('NDI1MTExNDIzMzI5NTAxMjE1.DZCrcA.e-OZAY-6rvHa3TQP9TmF6ss7N_4')
+    
+
+client.run('NDI1MTExNDIzMzI5NTAxMjE1.DZCrcA.e-OZAY-6rvHa3TQP9TmF6ss7N_4')
