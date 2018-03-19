@@ -3,6 +3,8 @@ import youtube_dl
 
 client = discord.Client()
 
+player = 
+
 @client.event
 async def on_ready():
     print ("Estou Online!")
@@ -17,9 +19,7 @@ async def on_message(message):
         msgArray = message.content.split()
         voice = await client.join_voice_channel(client.get_channel('425083604721336324'))
         player = await voice.create_ytdl_player(msgArray[1])
-        player.play()
-
-            
+        player.start()
 
 @client.event
 async def on_member_join(member):
